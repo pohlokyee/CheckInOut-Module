@@ -1,7 +1,8 @@
 <mvc:View controllerName="project1.controller.View1"
     xmlns:mvc="sap.ui.core.mvc"
-    xmlns="sap.m">
-    <Page id="page" title="UTM Hostel Management System">
+    xmlns="sap.m"
+    displayBlock="true">
+    <Page id="page" title="UTM Hostel Management System" enableScrolling="true">
         <content>
             <VBox alignItems="Center" justifyContent="Center" class="sapUiLargeMargin">
                 <Title text="Welcome to Hostel Management System" level="H1" class="sapUiLargeMarginBottom"/>
@@ -13,14 +14,14 @@
                         icon="sap-icon://person-placeholder"
                         type="Emphasized"
                         width="100%"
-                        press=".onStudentPortal"
+                        press="onStudentPortal"
                         class="sapUiSmallMarginBottom"/>
                     <Button
                         text="Administrator Portal"
                         icon="sap-icon://business-card"
                         type="Emphasized"
                         width="100%"
-                        press=".onAdminPortal"/>
+                        press="onAdminPortal"/>
                 </VBox>
                 
                 <Panel headerText="System Information" class="sapUiLargeMarginTop" width="600px">
