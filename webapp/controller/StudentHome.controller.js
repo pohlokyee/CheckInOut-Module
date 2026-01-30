@@ -14,6 +14,7 @@ sap.ui.define([
 
         onRequestEarlyAccess: function () {
             var oView = this.getView();
+            console.log("Opening early request dialog");
 
             // Load and open the early request dialog
             if (!this._oEarlyRequestDialog) {
@@ -25,9 +26,14 @@ sap.ui.define([
                     this._oEarlyRequestDialog = oDialog;
                     oView.addDependent(oDialog);
                     oDialog.open();
-                }.bind(this));
+                    console.log("Dialog opened successfully");
+                }.bind(this)).catch(function(oError) {
+                    console.error("Error loading dialog:", oError);
+                    MessageBox.error("Error loading dialog: " + oError.message);
+                });
             } else {
                 this._oEarlyRequestDialog.open();
+                console.log("Dialog already loaded, opening existing dialog");
             }
         },
 

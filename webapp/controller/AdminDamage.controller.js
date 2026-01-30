@@ -179,6 +179,12 @@ sap.ui.define([
 
         onCancelReview: function () {
             this._oReviewDialog.close();
+        },
+
+        onViewPhoto: function (oEvent) {
+            var oLink = oEvent.getSource();
+            var sPhoto = oLink.getText();
+            MessageToast.show("Viewing photo: " + sPhoto);
         }
     });
 });
