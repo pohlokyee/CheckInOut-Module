@@ -1,0 +1,151 @@
+{
+  "systemSettings": {
+    "currentPeriod": {
+      "academicYear": "2025/2026",
+      "semester": "Semester 2",
+      "checkInStart": "2026-02-01",
+      "checkInEnd": "2026-02-15",
+      "checkOutStart": "2026-06-01",
+      "checkOutEnd": "2026-06-15",
+      "isOpen": false
+    }
+  },
+  "currentStudent": {
+    "id": "S12345",
+    "name": "Ahmad Zaki",
+    "matricNo": "A20EC0001",
+    "email": "ahmad@graduate.utm.my",
+    "phone": "012-3456789",
+    "block": "Block A",
+    "room": "A-201",
+    "hasEarlyAccess": false,
+    "checkInStatus": "pending",
+    "checkInDate": null,
+    "checkOutStatus": "pending",
+    "checkOutDate": null
+  },
+  "rooms": [
+    {
+      "id": "A-201",
+      "block": "Block A",
+      "floor": 2,
+      "qrCode": "QR-A-201",
+      "facilities": [
+        {"name": "Bed", "condition": "good"},
+        {"name": "Desk", "condition": "good"},
+        {"name": "Chair", "condition": "good"},
+        {"name": "Wardrobe", "condition": "good"},
+        {"name": "Air Conditioner", "condition": "good"},
+        {"name": "Fan", "condition": "good"},
+        {"name": "Window", "condition": "good"},
+        {"name": "Door Lock", "condition": "good"},
+        {"name": "Light", "condition": "good"},
+        {"name": "Power Outlet", "condition": "good"}
+      ]
+    }
+  ],
+  "earlyRequests": [
+    {
+      "id": "REQ001",
+      "studentId": "S12345",
+      "studentName": "Ahmad Zaki",
+      "matricNo": "A20EC0001",
+      "type": "check-in",
+      "requestedDate": "2026-01-25",
+      "reason": "Need to attend early orientation program",
+      "evidence": "orientation_letter.pdf",
+      "status": "pending",
+      "submittedDate": "2026-01-20",
+      "reviewedBy": null,
+      "reviewedDate": null
+    },
+    {
+      "id": "REQ002",
+      "studentId": "S12346",
+      "studentName": "Siti Nurul",
+      "matricNo": "A20EC0002",
+      "type": "check-in",
+      "requestedDate": "2026-01-28",
+      "reason": "International student - early arrival",
+      "evidence": "flight_ticket.pdf",
+      "status": "approved",
+      "submittedDate": "2026-01-18",
+      "reviewedBy": "Admin1",
+      "reviewedDate": "2026-01-19"
+    }
+  ],
+  "checkInOutRecords": [
+    {
+      "id": "CIO001",
+      "studentId": "S12346",
+      "studentName": "Siti Nurul",
+      "matricNo": "A20EC0002",
+      "type": "check-in",
+      "room": "A-202",
+      "date": "2026-01-28T10:30:00",
+      "status": "completed"
+    }
+  ],
+  "damageReports": [
+    {
+      "id": "DMG001",
+      "studentId": "S12346",
+      "studentName": "Siti Nurul",
+      "matricNo": "A20EC0002",
+      "room": "A-202",
+      "type": "check-in",
+      "reportDate": "2026-01-28T10:45:00",
+      "items": [
+        {
+          "facility": "Chair",
+          "condition": "Minor Damage",
+          "description": "Leg is slightly loose",
+          "photo": "chair_damage.jpg"
+        }
+      ],
+      "status": "pending",
+      "action": null,
+      "fineAmount": null,
+      "fineReason": null,
+      "maintenanceRequest": null,
+      "reviewedBy": null,
+      "reviewedDate": null
+    },
+    {
+      "id": "DMG002",
+      "studentId": "S12347",
+      "studentName": "Lee Wei",
+      "matricNo": "A20EC0003",
+      "room": "B-105",
+      "type": "check-out",
+      "reportDate": "2026-01-15T14:20:00",
+      "items": [
+        {
+          "facility": "Desk",
+          "condition": "Major Damage",
+          "description": "Deep scratches on surface",
+          "photo": "desk_damage.jpg"
+        }
+      ],
+      "status": "reviewed",
+      "action": "fine",
+      "fineAmount": 150,
+      "fineReason": "Severe damage to hostel property",
+      "maintenanceRequest": null,
+      "reviewedBy": "Admin1",
+      "reviewedDate": "2026-01-16T09:00:00"
+    }
+  ],
+  "maintenanceRequests": [
+    {
+      "id": "MNT001",
+      "damageReportId": "DMG003",
+      "room": "C-310",
+      "damageType": "Air Conditioner malfunction",
+      "priority": "High",
+      "notes": "Not cooling properly, needs immediate attention",
+      "status": "pending",
+      "createdDate": "2026-01-25T11:00:00"
+    }
+  ]
+}

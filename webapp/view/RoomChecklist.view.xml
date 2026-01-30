@@ -1,0 +1,98 @@
+<mvc:View
+    controllerName="project1.controller.RoomChecklist"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.ui.layout.form"
+    displayBlock="true">
+    <Page
+        id="roomChecklistPage"
+        title="Room Condition Checklist"
+        showNavButton="true"
+        navButtonPress=".onNavBack">
+        <content>
+            <VBox class="sapUiMediumMargin">
+                
+                <!-- Room Info -->
+                <Panel headerText="Room Information" class="sapUiSmallMarginBottom">
+                    <VBox class="sapUiSmallMargin">
+                        <HBox>
+                            <Label text="Room: " design="Bold"/>
+                            <Text text="{hostelData>/currentStudent/room}"/>
+                        </HBox>
+                        <HBox>
+                            <Label text="Block: " design="Bold"/>
+                            <Text text="{hostelData>/currentStudent/block}"/>
+                        </HBox>
+                    </VBox>
+                </Panel>
+
+                <!-- Instructions -->
+                <MessageStrip
+                    text="Please inspect each item carefully and mark its condition. For damaged items, provide description and photo."
+                    type="Information"
+                    showIcon="true"
+                    class="sapUiSmallMarginBottom"/>
+
+                <!-- Checklist -->
+                <Panel headerText="Facilities Checklist">
+                    <List
+                        id="facilitiesList"
+                        items="{view>/checklist}"
+                        noDataText="No facilities to check">
+                        <CustomListItem>
+                            <VBox width="100%" class="sapUiSmallMargin">
+                                <HBox justifyContent="SpaceBetween" alignItems="Center" width="100%">
+                                    <Label text="{view>name}" design="Bold" width="30%"/>
+                                    <SegmentedButton
+                                        selectedKey="{view>condition}"
+                                        selectionChange=".onConditionChange"
+                                        width="60%">
+                                        <items>
+                                            <SegmentedButtonItem key="Good" text="Good" icon="sap-icon://status-positive"/>
+                                            <SegmentedButtonItem key="Minor Damage" text="Minor" icon="sap-icon://status-critical"/>
+                                            <SegmentedButtonItem key="Major Damage" text="Major" icon="sap-icon://status-negative"/>
+                                        </items>
+                                    </SegmentedButton>
+                                </HBox>
+
+                                <!-- Damage Details (visible when Minor or Major selected) -->
+                                <VBox
+                                    visible="{= ${view>condition} === 'Minor Damage' || ${view>condition} === 'Major Damage' }"
+                                    class="sapUiSmallMarginTop">
+                                    <Label text="Description *" required="true" class="sapUiTinyMarginBottom"/>
+                                    <TextArea
+                                        value="{view>description}"
+                                        rows="2"
+                                        placeholder="Describe the damage"
+                                        class="sapUiSmallMarginBottom"/>
+                                    
+                                    <Label text="Photo Evidence *" required="true" class="sapUiTinyMarginBottom"/>
+                                    <HBox alignItems="Center">
+                                        <Button
+                                            text="Upload Photo"
+                                            icon="sap-icon://camera"
+                                            press=".onUploadPhoto"
+                                            class="sapUiTinyMarginEnd"/>
+                                        <Text
+                                            text="{view>photo}"
+                                            visible="{= ${view>photo} !== '' }"
+                                            class="sapUiSuccessText"/>
+                                    </HBox>
+                                </VBox>
+                            </VBox>
+                        </CustomListItem>
+                    </List>
+                </Panel>
+
+                <!-- Submit Button -->
+                <Button
+                    text="Submit Checklist"
+                    type="Emphasized"
+                    icon="sap-icon://accept"
+                    press=".onSubmitChecklist"
+                    class="sapUiLargeMarginTop"/>
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>

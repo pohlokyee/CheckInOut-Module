@@ -1,6 +1,47 @@
 <mvc:View controllerName="project1.controller.View1"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m">
-    <Page id="page" title="{i18n>title}">
+    <Page id="page" title="UTM Hostel Management System">
+        <content>
+            <VBox alignItems="Center" justifyContent="Center" class="sapUiLargeMargin">
+                <Title text="Welcome to Hostel Management System" level="H1" class="sapUiLargeMarginBottom"/>
+                <Text text="Please select your role to continue" class="sapUiMediumMarginBottom"/>
+                
+                <VBox width="400px" class="sapUiMediumMarginTop">
+                    <Button
+                        text="Student Portal"
+                        icon="sap-icon://person-placeholder"
+                        type="Emphasized"
+                        width="100%"
+                        press=".onStudentPortal"
+                        class="sapUiSmallMarginBottom"/>
+                    <Button
+                        text="Administrator Portal"
+                        icon="sap-icon://business-card"
+                        type="Emphasized"
+                        width="100%"
+                        press=".onAdminPortal"/>
+                </VBox>
+                
+                <Panel headerText="System Information" class="sapUiLargeMarginTop" width="600px">
+                    <VBox class="sapUiSmallMargin">
+                        <HBox class="sapUiTinyMarginBottom">
+                            <Label text="Current Period: " design="Bold" width="150px"/>
+                            <Text text="{hostelData>/systemSettings/currentPeriod/semester}"/>
+                        </HBox>
+                        <HBox class="sapUiTinyMarginBottom">
+                            <Label text="Academic Year: " design="Bold" width="150px"/>
+                            <Text text="{hostelData>/systemSettings/currentPeriod/academicYear}"/>
+                        </HBox>
+                        <HBox>
+                            <Label text="System Status: " design="Bold" width="150px"/>
+                            <ObjectStatus
+                                text="{= ${hostelData>/systemSettings/currentPeriod/isOpen} ? 'Open' : 'Closed' }"
+                                state="{= ${hostelData>/systemSettings/currentPeriod/isOpen} ? 'Success' : 'Error' }"/>
+                        </HBox>
+                    </VBox>
+                </Panel>
+            </VBox>
+        </content>
     </Page>
 </mvc:View>

@@ -1,0 +1,105 @@
+<mvc:View
+    controllerName="project1.controller.AdminDamage"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    displayBlock="true">
+    <Page
+        id="adminDamagePage"
+        title="Damage Report Review"
+        showNavButton="true"
+        navButtonPress=".onNavBack">
+        <content>
+            <VBox class="sapUiMediumMargin">
+                
+                <!-- Filter Bar -->
+                <Toolbar class="sapUiSmallMarginBottom">
+                    <Title text="Damage Reports" level="H3"/>
+                    <ToolbarSpacer/>
+                    <SegmentedButton
+                        id="statusFilter"
+                        selectedKey="pending"
+                        selectionChange=".onFilterChange">
+                        <items>
+                            <SegmentedButtonItem key="all" text="All"/>
+                            <SegmentedButtonItem key="pending" text="Pending"/>
+                            <SegmentedButtonItem key="reviewed" text="Reviewed"/>
+                        </items>
+                    </SegmentedButton>
+                </Toolbar>
+
+                <!-- Damage Reports Table -->
+                <Table
+                    id="damageTable"
+                    items="{
+                        path: 'hostelData>/damageReports',
+                        sorter: {
+                            path: 'reportDate',
+                            descending: true
+                        }
+                    }"
+                    mode="SingleSelectMaster">
+                    <columns>
+                        <Column width="10%">
+                            <Text text="Report ID"/>
+                        </Column>
+                        <Column width="15%">
+                            <Text text="Student"/>
+                        </Column>
+                        <Column width="10%">
+                            <Text text="Room"/>
+                        </Column>
+                        <Column width="10%">
+                            <Text text="Type"/>
+                        </Column>
+                        <Column width="15%">
+                            <Text text="Report Date"/>
+                        </Column>
+                        <Column width="12%">
+                            <Text text="Status"/>
+                        </Column>
+                        <Column width="13%">
+                            <Text text="Action Taken"/>
+                        </Column>
+                        <Column width="15%">
+                            <Text text="Actions"/>
+                        </Column>
+                    </columns>
+                    <items>
+                        <ColumnListItem>
+                            <cells>
+                                <Text text="{hostelData>id}"/>
+                                <Text text="{hostelData>studentName}"/>
+                                <Text text="{hostelData>room}"/>
+                                <ObjectStatus
+                                    text="{= ${hostelData>type} === 'check-in' ? 'Check-In' : 'Check-Out' }"/>
+                                <Text text="{
+                                    path: 'hostelData>reportDate',
+                                    formatter: '.formatDateTime'
+                                }"/>
+                                <ObjectStatus
+                                    text="{hostelData>status}"
+                                    state="{= ${hostelData>status} === 'pending' ? 'Warning' : 'Success' }"/>
+                                <ObjectStatus
+                                    text="{= ${hostelData>action} ? ${hostelData>action} : 'None' }"
+                                    state="{= ${hostelData>action} === 'fine' ? 'Error' : ${hostelData>action} === 'maintenance' ? 'Warning' : 'None' }"/>
+                                <HBox>
+                                    <Button
+                                        text="Review"
+                                        type="Emphasized"
+                                        press=".onReviewDamage"
+                                        visible="{= ${hostelData>status} === 'pending' }"
+                                        class="sapUiTinyMarginEnd"/>
+                                    <Button
+                                        text="View"
+                                        press=".onViewDamage"
+                                        visible="{= ${hostelData>status} !== 'pending' }"/>
+                                </HBox>
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>

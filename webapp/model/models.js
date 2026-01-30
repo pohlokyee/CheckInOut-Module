@@ -14,6 +14,16 @@ function (JSONModel, Device) {
             var oModel = new JSONModel(Device);
             oModel.setDefaultBindingMode("OneWay");
             return oModel;
+        },
+
+        /**
+         * Creates the hostel data model with mock data.
+         * @returns {sap.ui.model.json.JSONModel} The hostel data model.
+         */
+        createHostelDataModel: function () {
+            var oModel = new JSONModel();
+            oModel.loadData(sap.ui.require.toUrl("project1/model/hostelData.json"));
+            return oModel;
         }
     };
 

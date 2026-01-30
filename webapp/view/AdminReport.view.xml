@@ -1,0 +1,173 @@
+<mvc:View
+    controllerName="project1.controller.AdminReport"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.ui.layout.form"
+    displayBlock="true">
+    <Page
+        id="adminReportPage"
+        title="Operational Reports"
+        showNavButton="true"
+        navButtonPress=".onNavBack">
+        <content>
+            <VBox class="sapUiMediumMargin">
+                
+                <!-- Filter Panel -->
+                <Panel headerText="Report Filters" class="sapUiSmallMarginBottom">
+                    <f:SimpleForm
+                        editable="true"
+                        layout="ResponsiveGridLayout"
+                        labelSpanXL="3"
+                        labelSpanL="3"
+                        labelSpanM="3"
+                        labelSpanS="12"
+                        emptySpanXL="0"
+                        emptySpanL="0"
+                        emptySpanM="0"
+                        emptySpanS="0"
+                        columnsXL="2"
+                        columnsL="2"
+                        columnsM="1"
+                        class="sapUiSmallMargin">
+                        <f:content>
+                            <Label text="Report Type"/>
+                            <Select
+                                id="reportTypeSelect"
+                                selectedKey="all">
+                                <items>
+                                    <core:Item key="all" text="All Data"/>
+                                    <core:Item key="checkIn" text="Check-In Records"/>
+                                    <core:Item key="checkOut" text="Check-Out Records"/>
+                                    <core:Item key="damage" text="Damage Reports"/>
+                                    <core:Item key="earlyRequests" text="Early Requests"/>
+                                </items>
+                            </Select>
+
+                            <Label text="Block"/>
+                            <Select
+                                id="blockSelect"
+                                selectedKey="all">
+                                <items>
+                                    <core:Item key="all" text="All Blocks"/>
+                                    <core:Item key="Block A" text="Block A"/>
+                                    <core:Item key="Block B" text="Block B"/>
+                                    <core:Item key="Block C" text="Block C"/>
+                                </items>
+                            </Select>
+
+                            <Label text="Semester"/>
+                            <Select
+                                id="semesterSelect"
+                                selectedKey="current">
+                                <items>
+                                    <core:Item key="current" text="Current Semester"/>
+                                    <core:Item key="Semester 1" text="Semester 1"/>
+                                    <core:Item key="Semester 2" text="Semester 2"/>
+                                    <core:Item key="Short Semester" text="Short Semester"/>
+                                </items>
+                            </Select>
+
+                            <Label text="Status"/>
+                            <Select
+                                id="statusSelect"
+                                selectedKey="all">
+                                <items>
+                                    <core:Item key="all" text="All Status"/>
+                                    <core:Item key="pending" text="Pending"/>
+                                    <core:Item key="completed" text="Completed"/>
+                                    <core:Item key="reviewed" text="Reviewed"/>
+                                </items>
+                            </Select>
+                        </f:content>
+                    </f:SimpleForm>
+                    <Toolbar>
+                        <ToolbarSpacer/>
+                        <Button
+                            text="Generate Report"
+                            type="Emphasized"
+                            icon="sap-icon://generate-shortcut"
+                            press=".onGenerateReport"/>
+                        <Button
+                            text="Clear Filters"
+                            icon="sap-icon://clear-filter"
+                            press=".onClearFilters"/>
+                    </Toolbar>
+                </Panel>
+
+                <!-- Report Display -->
+                <Panel
+                    id="reportPanel"
+                    headerText="Report Results"
+                    visible="{view>/reportGenerated}">
+                    <Toolbar>
+                        <Title text="{view>/reportTitle}" level="H4"/>
+                        <ToolbarSpacer/>
+                        <Button
+                            text="Export to CSV"
+                            icon="sap-icon://excel-attachment"
+                            press=".onExportCSV"/>
+                        <Button
+                            text="Export to Excel"
+                            icon="sap-icon://excel-attachment"
+                            press=".onExportExcel"/>
+                    </Toolbar>
+
+                    <!-- Summary Cards -->
+                    <HBox class="sapUiSmallMargin" justifyContent="SpaceAround">
+                        <VBox alignItems="Center" class="sapUiSmallMargin">
+                            <Title text="{view>/summary/totalRecords}" level="H2" textAlign="Center"/>
+                            <Text text="Total Records"/>
+                        </VBox>
+                        <VBox alignItems="Center" class="sapUiSmallMargin">
+                            <Title text="{view>/summary/pending}" level="H2" textAlign="Center"/>
+                            <Text text="Pending"/>
+                        </VBox>
+                        <VBox alignItems="Center" class="sapUiSmallMargin">
+                            <Title text="{view>/summary/completed}" level="H2" textAlign="Center"/>
+                            <Text text="Completed/Reviewed"/>
+                        </VBox>
+                    </HBox>
+
+                    <!-- Report Table -->
+                    <Table
+                        id="reportTable"
+                        items="{view>/reportData}"
+                        growing="true"
+                        growingThreshold="20">
+                        <columns>
+                            <Column>
+                                <Text text="ID"/>
+                            </Column>
+                            <Column>
+                                <Text text="Student/Details"/>
+                            </Column>
+                            <Column>
+                                <Text text="Room/Type"/>
+                            </Column>
+                            <Column>
+                                <Text text="Date"/>
+                            </Column>
+                            <Column>
+                                <Text text="Status"/>
+                            </Column>
+                        </columns>
+                        <items>
+                            <ColumnListItem>
+                                <cells>
+                                    <Text text="{view>id}"/>
+                                    <Text text="{view>name}"/>
+                                    <Text text="{view>room}"/>
+                                    <Text text="{view>date}"/>
+                                    <ObjectStatus
+                                        text="{view>status}"
+                                        state="{view>statusState}"/>
+                                </cells>
+                            </ColumnListItem>
+                        </items>
+                    </Table>
+                </Panel>
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>

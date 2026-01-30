@@ -1,0 +1,103 @@
+<mvc:View
+    controllerName="project1.controller.AdminRequests"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    displayBlock="true">
+    <Page
+        id="adminRequestsPage"
+        title="Early Request Review"
+        showNavButton="true"
+        navButtonPress=".onNavBack">
+        <content>
+            <VBox class="sapUiMediumMargin">
+                
+                <!-- Filter Bar -->
+                <Toolbar class="sapUiSmallMarginBottom">
+                    <Title text="Early Check-In/Out Requests" level="H3"/>
+                    <ToolbarSpacer/>
+                    <SegmentedButton
+                        id="statusFilter"
+                        selectedKey="pending"
+                        selectionChange=".onFilterChange">
+                        <items>
+                            <SegmentedButtonItem key="all" text="All"/>
+                            <SegmentedButtonItem key="pending" text="Pending"/>
+                            <SegmentedButtonItem key="approved" text="Approved"/>
+                            <SegmentedButtonItem key="rejected" text="Rejected"/>
+                        </items>
+                    </SegmentedButton>
+                </Toolbar>
+
+                <!-- Requests List -->
+                <Table
+                    id="requestsTable"
+                    items="{
+                        path: 'hostelData>/earlyRequests',
+                        sorter: {
+                            path: 'submittedDate',
+                            descending: true
+                        }
+                    }"
+                    mode="SingleSelectMaster"
+                    selectionChange=".onRequestSelect">
+                    <columns>
+                        <Column width="10%">
+                            <Text text="Request ID"/>
+                        </Column>
+                        <Column width="15%">
+                            <Text text="Student"/>
+                        </Column>
+                        <Column width="12%">
+                            <Text text="Matric No"/>
+                        </Column>
+                        <Column width="12%">
+                            <Text text="Type"/>
+                        </Column>
+                        <Column width="12%">
+                            <Text text="Requested Date"/>
+                        </Column>
+                        <Column width="12%">
+                            <Text text="Submitted"/>
+                        </Column>
+                        <Column width="12%">
+                            <Text text="Status"/>
+                        </Column>
+                        <Column width="15%">
+                            <Text text="Actions"/>
+                        </Column>
+                    </columns>
+                    <items>
+                        <ColumnListItem>
+                            <cells>
+                                <Text text="{hostelData>id}"/>
+                                <Text text="{hostelData>studentName}"/>
+                                <Text text="{hostelData>matricNo}"/>
+                                <ObjectStatus
+                                    text="{= ${hostelData>type} === 'check-in' ? 'Check-In' : 'Check-Out' }"
+                                    state="Information"/>
+                                <Text text="{hostelData>requestedDate}"/>
+                                <Text text="{hostelData>submittedDate}"/>
+                                <ObjectStatus
+                                    text="{hostelData>status}"
+                                    state="{= ${hostelData>status} === 'pending' ? 'Warning' : ${hostelData>status} === 'approved' ? 'Success' : 'Error' }"/>
+                                <HBox>
+                                    <Button
+                                        text="Review"
+                                        type="Emphasized"
+                                        press=".onReviewRequest"
+                                        visible="{= ${hostelData>status} === 'pending' }"
+                                        class="sapUiTinyMarginEnd"/>
+                                    <Button
+                                        text="View"
+                                        press=".onViewRequest"
+                                        visible="{= ${hostelData>status} !== 'pending' }"/>
+                                </HBox>
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>

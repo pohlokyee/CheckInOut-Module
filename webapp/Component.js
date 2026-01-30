@@ -19,6 +19,9 @@ sap.ui.define([
             // set the device model
             this.setModel(models.createDeviceModel(), "device");
 
+            // set the hostel data model
+            this.setModel(models.createHostelDataModel(), "hostelData");
+
             // enable routing
             this.getRouter().initialize();
         }

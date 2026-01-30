@@ -1,0 +1,133 @@
+<mvc:View
+    controllerName="project1.controller.AdminPeriod"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.ui.layout.form"
+    displayBlock="true">
+    <Page
+        id="adminPeriodPage"
+        title="Period Management"
+        showNavButton="true"
+        navButtonPress=".onNavBack">
+        <content>
+            <VBox class="sapUiMediumMargin">
+                
+                <!-- Current Period Display -->
+                <Panel headerText="Current Period Settings" class="sapUiSmallMarginBottom">
+                    <VBox class="sapUiSmallMargin">
+                        <HBox class="sapUiTinyMarginBottom">
+                            <Label text="Academic Year: " design="Bold" width="150px"/>
+                            <Text text="{hostelData>/systemSettings/currentPeriod/academicYear}"/>
+                        </HBox>
+                        <HBox class="sapUiTinyMarginBottom">
+                            <Label text="Semester: " design="Bold" width="150px"/>
+                            <Text text="{hostelData>/systemSettings/currentPeriod/semester}"/>
+                        </HBox>
+                        <HBox class="sapUiTinyMarginBottom">
+                            <Label text="Check-In Period: " design="Bold" width="150px"/>
+                            <Text text="{hostelData>/systemSettings/currentPeriod/checkInStart} to {hostelData>/systemSettings/currentPeriod/checkInEnd}"/>
+                        </HBox>
+                        <HBox class="sapUiTinyMarginBottom">
+                            <Label text="Check-Out Period: " design="Bold" width="150px"/>
+                            <Text text="{hostelData>/systemSettings/currentPeriod/checkOutStart} to {hostelData>/systemSettings/currentPeriod/checkOutEnd}"/>
+                        </HBox>
+                        <HBox>
+                            <Label text="System Status: " design="Bold" width="150px"/>
+                            <ObjectStatus
+                                text="{= ${hostelData>/systemSettings/currentPeriod/isOpen} ? 'Open' : 'Closed' }"
+                                state="{= ${hostelData>/systemSettings/currentPeriod/isOpen} ? 'Success' : 'Error' }"/>
+                        </HBox>
+                    </VBox>
+                </Panel>
+
+                <!-- Edit Period Form -->
+                <Panel headerText="Configure Period">
+                    <f:SimpleForm
+                        editable="true"
+                        layout="ResponsiveGridLayout"
+                        labelSpanXL="3"
+                        labelSpanL="3"
+                        labelSpanM="3"
+                        labelSpanS="12"
+                        emptySpanXL="0"
+                        emptySpanL="0"
+                        emptySpanM="0"
+                        emptySpanS="0"
+                        columnsXL="1"
+                        columnsL="1"
+                        columnsM="1"
+                        class="sapUiSmallMargin">
+                        <f:content>
+                            <Label text="Academic Year" required="true"/>
+                            <Input
+                                id="academicYearInput"
+                                value="{hostelData>/systemSettings/currentPeriod/academicYear}"
+                                placeholder="e.g., 2025/2026"/>
+
+                            <Label text="Semester" required="true"/>
+                            <Select
+                                id="semesterSelect"
+                                selectedKey="{hostelData>/systemSettings/currentPeriod/semester}">
+                                <items>
+                                    <core:Item key="Semester 1" text="Semester 1"/>
+                                    <core:Item key="Semester 2" text="Semester 2"/>
+                                    <core:Item key="Short Semester" text="Short Semester"/>
+                                </items>
+                            </Select>
+
+                            <Label text="Check-In Start Date" required="true"/>
+                            <DatePicker
+                                id="checkInStartDate"
+                                value="{hostelData>/systemSettings/currentPeriod/checkInStart}"
+                                displayFormat="dd/MM/yyyy"
+                                valueFormat="yyyy-MM-dd"/>
+
+                            <Label text="Check-In End Date" required="true"/>
+                            <DatePicker
+                                id="checkInEndDate"
+                                value="{hostelData>/systemSettings/currentPeriod/checkInEnd}"
+                                displayFormat="dd/MM/yyyy"
+                                valueFormat="yyyy-MM-dd"/>
+
+                            <Label text="Check-Out Start Date" required="true"/>
+                            <DatePicker
+                                id="checkOutStartDate"
+                                value="{hostelData>/systemSettings/currentPeriod/checkOutStart}"
+                                displayFormat="dd/MM/yyyy"
+                                valueFormat="yyyy-MM-dd"/>
+
+                            <Label text="Check-Out End Date" required="true"/>
+                            <DatePicker
+                                id="checkOutEndDate"
+                                value="{hostelData>/systemSettings/currentPeriod/checkOutEnd}"
+                                displayFormat="dd/MM/yyyy"
+                                valueFormat="yyyy-MM-dd"/>
+
+                            <Label text="System Status"/>
+                            <Switch
+                                id="systemStatusSwitch"
+                                state="{hostelData>/systemSettings/currentPeriod/isOpen}"
+                                customTextOn="Open"
+                                customTextOff="Closed"/>
+                        </f:content>
+                    </f:SimpleForm>
+                </Panel>
+
+                <!-- Action Buttons -->
+                <HBox class="sapUiMediumMarginTop" justifyContent="End">
+                    <Button
+                        text="Save Settings"
+                        type="Emphasized"
+                        icon="sap-icon://save"
+                        press=".onSavePeriod"
+                        class="sapUiTinyMarginEnd"/>
+                    <Button
+                        text="Reset"
+                        icon="sap-icon://undo"
+                        press=".onReset"/>
+                </HBox>
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>

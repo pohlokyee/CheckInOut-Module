@@ -1,0 +1,75 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.ui.layout.form">
+    <Dialog
+        id="reviewRequestDialog"
+        title="Review Early Request"
+        contentWidth="600px">
+        <content>
+            <f:SimpleForm
+                editable="false"
+                layout="ResponsiveGridLayout"
+                labelSpanXL="4"
+                labelSpanL="4"
+                labelSpanM="4"
+                labelSpanS="12"
+                emptySpanXL="0"
+                emptySpanL="0"
+                emptySpanM="0"
+                emptySpanS="0"
+                columnsXL="1"
+                columnsL="1"
+                columnsM="1">
+                <f:content>
+                    <core:Title text="Student Information"/>
+                    <Label text="Request ID"/>
+                    <Text text="{hostelData>id}"/>
+
+                    <Label text="Student Name"/>
+                    <Text text="{hostelData>studentName}"/>
+
+                    <Label text="Matric No"/>
+                    <Text text="{hostelData>matricNo}"/>
+
+                    <core:Title text="Request Details"/>
+                    <Label text="Type"/>
+                    <ObjectStatus
+                        text="{= ${hostelData>type} === 'check-in' ? 'Early Check-In' : 'Early Check-Out' }"
+                        state="Information"/>
+
+                    <Label text="Requested Date"/>
+                    <Text text="{hostelData>requestedDate}"/>
+
+                    <Label text="Submitted Date"/>
+                    <Text text="{hostelData>submittedDate}"/>
+
+                    <Label text="Reason"/>
+                    <VBox>
+                        <Text text="{hostelData>reason}" class="sapUiSmallMarginBottom"/>
+                    </VBox>
+
+                    <Label text="Evidence"/>
+                    <HBox alignItems="Center">
+                        <core:Icon src="sap-icon://document" class="sapUiTinyMarginEnd"/>
+                        <Link text="{hostelData>evidence}" press=".onViewEvidence"/>
+                    </HBox>
+                </f:content>
+            </f:SimpleForm>
+        </content>
+        <beginButton>
+            <Button
+                text="Approve"
+                type="Success"
+                icon="sap-icon://accept"
+                press=".onApproveRequest"/>
+        </beginButton>
+        <endButton>
+            <Button
+                text="Reject"
+                type="Reject"
+                icon="sap-icon://decline"
+                press=".onRejectRequest"/>
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

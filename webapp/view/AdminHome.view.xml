@@ -1,0 +1,109 @@
+<mvc:View
+    controllerName="project1.controller.AdminHome"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    displayBlock="true">
+    <Page
+        id="adminHomePage"
+        title="Admin Dashboard - Hostel Management"
+        showNavButton="true"
+        navButtonPress=".onNavBack">
+        <content>
+            <VBox class="sapUiMediumMargin">
+                <Title text="Administrator Functions" level="H2" class="sapUiMediumMarginBottom"/>
+                
+                <!-- Period Management -->
+                <Panel
+                    headerText="Period Management"
+                    class="sapUiSmallMarginBottom">
+                    <VBox class="sapUiSmallMargin">
+                        <Text text="Configure check-in and check-out periods for each semester" class="sapUiSmallMarginBottom"/>
+                        <Button
+                            text="Manage Periods"
+                            icon="sap-icon://calendar"
+                            type="Emphasized"
+                            press=".onManagePeriods"/>
+                    </VBox>
+                </Panel>
+
+                <!-- Request Review -->
+                <Panel
+                    headerText="Early Request Review"
+                    class="sapUiSmallMarginBottom">
+                    <VBox class="sapUiSmallMargin">
+                        <HBox justifyContent="SpaceBetween" class="sapUiSmallMarginBottom">
+                            <Text text="Review and approve/reject early check-in/out requests"/>
+                            <ObjectStatus
+                                text="{= ${hostelData>/earlyRequests}.filter(function(r) { return r.status === 'pending'; }).length + ' pending' }"
+                                state="Warning"/>
+                        </HBox>
+                        <Button
+                            text="Review Requests"
+                            icon="sap-icon://request"
+                            type="Emphasized"
+                            press=".onReviewRequests"/>
+                    </VBox>
+                </Panel>
+
+                <!-- Damage Reports -->
+                <Panel
+                    headerText="Damage Report Review"
+                    class="sapUiSmallMarginBottom">
+                    <VBox class="sapUiSmallMargin">
+                        <HBox justifyContent="SpaceBetween" class="sapUiSmallMarginBottom">
+                            <Text text="Review damage reports and take appropriate actions"/>
+                            <ObjectStatus
+                                text="{= ${hostelData>/damageReports}.filter(function(r) { return r.status === 'pending'; }).length + ' pending' }"
+                                state="Critical"/>
+                        </HBox>
+                        <Button
+                            text="Review Damage Reports"
+                            icon="sap-icon://warning"
+                            type="Emphasized"
+                            press=".onReviewDamage"/>
+                    </VBox>
+                </Panel>
+
+                <!-- Reports -->
+                <Panel
+                    headerText="Operational Reports"
+                    class="sapUiSmallMarginBottom">
+                    <VBox class="sapUiSmallMargin">
+                        <Text text="Generate and export operational reports with filters" class="sapUiSmallMarginBottom"/>
+                        <Button
+                            text="Generate Reports"
+                            icon="sap-icon://generate-shortcut"
+                            type="Emphasized"
+                            press=".onGenerateReports"/>
+                    </VBox>
+                </Panel>
+
+                <!-- Quick Stats -->
+                <Panel headerText="Quick Statistics" class="sapUiSmallMarginTop">
+                    <HBox class="sapUiSmallMargin" justifyContent="SpaceAround">
+                        <VBox alignItems="Center">
+                            <Title text="{= ${hostelData>/checkInOutRecords}.length }" level="H3"/>
+                            <Text text="Total Check-In/Out"/>
+                        </VBox>
+                        <VBox alignItems="Center">
+                            <Title text="{= ${hostelData>/earlyRequests}.length }" level="H3"/>
+                            <Text text="Early Requests"/>
+                        </VBox>
+                        <VBox alignItems="Center">
+                            <Title text="{= ${hostelData>/damageReports}.length }" level="H3"/>
+                            <Text text="Damage Reports"/>
+                        </VBox>
+                    </HBox>
+                </Panel>
+
+                <!-- Switch to Student View -->
+                <Button
+                    text="Switch to Student View"
+                    icon="sap-icon://person-placeholder"
+                    press=".onSwitchToStudent"
+                    class="sapUiMediumMarginTop"/>
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>

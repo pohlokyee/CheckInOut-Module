@@ -5,6 +5,14 @@ sap.ui.define([
 
     return Controller.extend("project1.controller.View1", {
         onInit() {
+        },
+        
+        onStudentPortal() {
+            this.getOwnerComponent().getRouter().navTo("studentHome");
+        },
+        
+        onAdminPortal() {
+            this.getOwnerComponent().getRouter().navTo("adminHome");
         }
     });
 });

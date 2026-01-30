@@ -1,0 +1,72 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.ui.layout.form">
+    <Dialog
+        id="earlyRequestDialog"
+        title="Request Early Check-In/Out"
+        contentWidth="500px">
+        <content>
+            <f:SimpleForm
+                editable="true"
+                layout="ResponsiveGridLayout"
+                labelSpanXL="4"
+                labelSpanL="4"
+                labelSpanM="4"
+                labelSpanS="12"
+                emptySpanXL="0"
+                emptySpanL="0"
+                emptySpanM="0"
+                emptySpanS="0"
+                columnsXL="1"
+                columnsL="1"
+                columnsM="1"
+                singleContainerFullSize="false">
+                <f:content>
+                    <Label text="Request Type" required="true"/>
+                    <Select
+                        id="requestTypeSelect"
+                        selectedKey="">
+                        <items>
+                            <core:Item key="check-in" text="Early Check-In"/>
+                            <core:Item key="check-out" text="Early Check-Out"/>
+                        </items>
+                    </Select>
+
+                    <Label text="Requested Date" required="true"/>
+                    <DatePicker
+                        id="requestedDatePicker"
+                        placeholder="Select date"
+                        displayFormat="dd/MM/yyyy"/>
+
+                    <Label text="Reason" required="true"/>
+                    <TextArea
+                        id="reasonTextArea"
+                        rows="4"
+                        placeholder="Please provide detailed reason for early check-in/out"/>
+
+                    <Label text="Supporting Evidence"/>
+                    <HBox alignItems="Center">
+                        <Button
+                            text="Upload File"
+                            icon="sap-icon://upload"
+                            press=".onUploadEvidence"
+                            class="sapUiTinyMarginEnd"/>
+                        <Text text="(PDF, JPG, PNG - max 5MB)"/>
+                    </HBox>
+                </f:content>
+            </f:SimpleForm>
+        </content>
+        <beginButton>
+            <Button
+                text="Submit"
+                type="Emphasized"
+                press=".onSubmitEarlyRequest"/>
+        </beginButton>
+        <endButton>
+            <Button
+                text="Cancel"
+                press=".onCancelEarlyRequest"/>
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

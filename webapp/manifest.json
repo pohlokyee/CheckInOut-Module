@@ -75,9 +75,65 @@
       "routes": [
         {
           "name": "RouteView1",
-          "pattern": ":?query:",
+          "pattern": "",
           "target": [
             "TargetView1"
+          ]
+        },
+        {
+          "name": "studentHome",
+          "pattern": "student",
+          "target": [
+            "TargetStudentHome"
+          ]
+        },
+        {
+          "name": "checkInOut",
+          "pattern": "checkinout/{type}",
+          "target": [
+            "TargetCheckInOut"
+          ]
+        },
+        {
+          "name": "roomChecklist",
+          "pattern": "checklist/{type}",
+          "target": [
+            "TargetRoomChecklist"
+          ]
+        },
+        {
+          "name": "adminHome",
+          "pattern": "admin",
+          "target": [
+            "TargetAdminHome"
+          ]
+        },
+        {
+          "name": "adminPeriod",
+          "pattern": "admin/period",
+          "target": [
+            "TargetAdminPeriod"
+          ]
+        },
+        {
+          "name": "adminRequests",
+          "pattern": "admin/requests",
+          "target": [
+            "TargetAdminRequests"
+          ]
+        },
+        {
+          "name": "adminDamage",
+          "pattern": "admin/damage",
+          "target": [
+            "TargetAdminDamage"
+          ]
+        },
+        {
+          "name": "adminReport",
+          "pattern": "admin/report",
+          "target": [
+            "TargetAdminReport"
           ]
         }
       ],
@@ -85,6 +141,38 @@
         "TargetView1": {
           "id": "View1",
           "name": "View1"
+        },
+        "TargetStudentHome": {
+          "id": "StudentHome",
+          "name": "StudentHome"
+        },
+        "TargetCheckInOut": {
+          "id": "CheckInOut",
+          "name": "CheckInOut"
+        },
+        "TargetRoomChecklist": {
+          "id": "RoomChecklist",
+          "name": "RoomChecklist"
+        },
+        "TargetAdminHome": {
+          "id": "AdminHome",
+          "name": "AdminHome"
+        },
+        "TargetAdminPeriod": {
+          "id": "AdminPeriod",
+          "name": "AdminPeriod"
+        },
+        "TargetAdminRequests": {
+          "id": "AdminRequests",
+          "name": "AdminRequests"
+        },
+        "TargetAdminDamage": {
+          "id": "AdminDamage",
+          "name": "AdminDamage"
+        },
+        "TargetAdminReport": {
+          "id": "AdminReport",
+          "name": "AdminReport"
         }
       }
     },

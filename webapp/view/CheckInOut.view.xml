@@ -1,0 +1,86 @@
+<mvc:View
+    controllerName="project1.controller.CheckInOut"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    displayBlock="true">
+    <Page
+        id="checkInOutPage"
+        title="{= ${view>/processType} === 'check-in' ? 'Check-In Process' : 'Check-Out Process' }"
+        showNavButton="true"
+        navButtonPress=".onNavBack">
+        <content>
+            <VBox class="sapUiMediumMargin">
+                
+                <!-- Process Steps -->
+                <Panel headerText="Steps" class="sapUiSmallMarginBottom">
+                    <VBox class="sapUiSmallMargin">
+                        <HBox alignItems="Center" class="sapUiTinyMarginBottom">
+                            <core:Icon
+                                src="sap-icon://accept"
+                                color="{= ${view>/currentStep} >= 1 ? 'Success' : 'Default'}"
+                                class="sapUiTinyMarginEnd"/>
+                            <Text text="1. Scan Room QR Code" class="{= ${view>/currentStep} === 1 ? 'sapUiEmphasisText' : '' }"/>
+                        </HBox>
+                        <HBox alignItems="Center" class="sapUiTinyMarginBottom">
+                            <core:Icon
+                                src="sap-icon://accept"
+                                color="{= ${view>/currentStep} >= 2 ? 'Success' : 'Default'}"
+                                class="sapUiTinyMarginEnd"/>
+                            <Text text="2. Complete Room Checklist" class="{= ${view>/currentStep} === 2 ? 'sapUiEmphasisText' : '' }"/>
+                        </HBox>
+                        <HBox alignItems="Center">
+                            <core:Icon
+                                src="sap-icon://accept"
+                                color="{= ${view>/currentStep} >= 3 ? 'Success' : 'Default'}"
+                                class="sapUiTinyMarginEnd"/>
+                            <Text text="3. Submit" class="{= ${view>/currentStep} === 3 ? 'sapUiEmphasisText' : '' }"/>
+                        </HBox>
+                    </VBox>
+                </Panel>
+
+                <!-- Step 1: QR Scanner -->
+                <Panel
+                    headerText="Step 1: Scan Room QR Code"
+                    visible="{= ${view>/currentStep} === 1 }">
+                    <VBox alignItems="Center" class="sapUiMediumMargin">
+                        <core:Icon
+                            src="sap-icon://qr-code"
+                            size="8rem"
+                            color="Neutral"
+                            class="sapUiLargeMarginBottom"/>
+                        <Title
+                            text="Scan Your Room QR Code"
+                            level="H3"
+                            class="sapUiSmallMarginBottom"/>
+                        <Text
+                            text="Please scan the QR code located at your room door"
+                            class="sapUiMediumMarginBottom"/>
+                        
+                        <!-- QR Code Input (Simulated) -->
+                        <VBox width="100%" alignItems="Center">
+                            <Label text="Or enter QR code manually:" class="sapUiSmallMarginBottom"/>
+                            <Input
+                                id="qrCodeInput"
+                                placeholder="e.g., QR-A-201"
+                                width="300px"
+                                class="sapUiSmallMarginBottom"/>
+                            <Button
+                                text="Verify Room"
+                                type="Emphasized"
+                                icon="sap-icon://check-availability"
+                                press=".onVerifyQRCode"/>
+                        </VBox>
+                    </VBox>
+                </Panel>
+
+                <!-- Verification Result -->
+                <MessageStrip
+                    id="verificationMessage"
+                    visible="false"
+                    showCloseButton="true"
+                    class="sapUiSmallMarginTop"/>
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>

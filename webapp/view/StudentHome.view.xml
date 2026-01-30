@@ -1,0 +1,120 @@
+<mvc:View
+    controllerName="project1.controller.StudentHome"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    displayBlock="true">
+    <Page
+        id="studentHomePage"
+        title="Hostel Check-In/Check-Out"
+        showNavButton="true"
+        navButtonPress=".onNavBack">
+        <headerContent>
+            <Button
+                text="Admin View"
+                icon="sap-icon://business-card"
+                press=".onSwitchToAdmin"/>
+        </headerContent>
+        <content>
+            <!-- Blocked State -->
+            <VBox
+                id="blockedState"
+                visible="{= !${hostelData>/systemSettings/currentPeriod/isOpen} &amp;&amp; !${hostelData>/currentStudent/hasEarlyAccess}}"
+                alignItems="Center"
+                justifyContent="Center"
+                class="sapUiMediumMargin">
+                <core:Icon
+                    src="sap-icon://locked"
+                    size="5rem"
+                    color="Critical"
+                    class="sapUiMediumMarginBottom"/>
+                <Title
+                    text="Check-In/Out is not open yet"
+                    level="H2"
+                    class="sapUiSmallMarginBottom"/>
+                <Text
+                    text="Official start date: {hostelData>/systemSettings/currentPeriod/checkInStart}"
+                    class="sapUiMediumMarginBottom"/>
+                <Button
+                    text="Request Early Check-In/Out"
+                    type="Emphasized"
+                    press=".onRequestEarlyAccess"
+                    icon="sap-icon://request"/>
+            </VBox>
+
+            <!-- Open State -->
+            <VBox
+                id="openState"
+                visible="{= ${hostelData>/systemSettings/currentPeriod/isOpen} || ${hostelData>/currentStudent/hasEarlyAccess}}"
+                class="sapUiMediumMargin">
+                
+                <!-- Student Info Card -->
+                <Panel
+                    headerText="Student Information"
+                    class="sapUiSmallMarginBottom">
+                    <VBox class="sapUiSmallMargin">
+                        <HBox class="sapUiTinyMarginBottom">
+                            <Label text="Name: " design="Bold"/>
+                            <Text text="{hostelData>/currentStudent/name}"/>
+                        </HBox>
+                        <HBox class="sapUiTinyMarginBottom">
+                            <Label text="Matric No: " design="Bold"/>
+                            <Text text="{hostelData>/currentStudent/matricNo}"/>
+                        </HBox>
+                        <HBox class="sapUiTinyMarginBottom">
+                            <Label text="Room: " design="Bold"/>
+                            <Text text="{hostelData>/currentStudent/room}"/>
+                        </HBox>
+                        <HBox class="sapUiTinyMarginBottom">
+                            <Label text="Block: " design="Bold"/>
+                            <Text text="{hostelData>/currentStudent/block}"/>
+                        </HBox>
+                    </VBox>
+                </Panel>
+
+                <!-- Check-In/Out Status -->
+                <Panel
+                    headerText="Status"
+                    class="sapUiSmallMarginBottom">
+                    <VBox class="sapUiSmallMargin">
+                        <HBox alignItems="Center" class="sapUiTinyMarginBottom">
+                            <Label text="Check-In: " design="Bold" class="sapUiTinyMarginEnd"/>
+                            <ObjectStatus
+                                text="{hostelData>/currentStudent/checkInStatus}"
+                                state="{= ${hostelData>/currentStudent/checkInStatus} === 'completed' ? 'Success' : 'Warning' }"/>
+                        </HBox>
+                        <HBox alignItems="Center" class="sapUiTinyMarginBottom">
+                            <Label text="Check-Out: " design="Bold" class="sapUiTinyMarginEnd"/>
+                            <ObjectStatus
+                                text="{hostelData>/currentStudent/checkOutStatus}"
+                                state="{= ${hostelData>/currentStudent/checkOutStatus} === 'completed' ? 'Success' : 'Warning' }"/>
+                        </HBox>
+                    </VBox>
+                </Panel>
+
+                <!-- Action Buttons -->
+                <VBox class="sapUiSmallMarginTop">
+                    <Button
+                        text="Start Check-In Process"
+                        type="Emphasized"
+                        icon="sap-icon://qr-code"
+                        press=".onStartCheckIn"
+                        visible="{= ${hostelData>/currentStudent/checkInStatus} === 'pending'}"
+                        class="sapUiSmallMarginBottom"/>
+                    <Button
+                        text="Start Check-Out Process"
+                        type="Emphasized"
+                        icon="sap-icon://qr-code"
+                        press=".onStartCheckOut"
+                        visible="{= ${hostelData>/currentStudent/checkOutStatus} === 'pending'}"
+                        class="sapUiSmallMarginBottom"/>
+                    <Button
+                        text="View My Requests"
+                        icon="sap-icon://request"
+                        press=".onViewRequests"
+                        class="sapUiSmallMarginBottom"/>
+                </VBox>
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>
