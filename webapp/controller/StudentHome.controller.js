@@ -103,6 +103,13 @@ sap.ui.define([
             });
         },
 
+        onStartSession: function () {
+            var sType = this._getSessionType();
+            this.getOwnerComponent().getRouter().navTo("checkInOut", {
+                type: sType
+            });
+        },
+
         onViewRequests: function () {
             MessageToast.show("View Requests functionality - To be implemented");
         },
@@ -111,8 +118,23 @@ sap.ui.define([
             this.getOwnerComponent().getRouter().navTo("RouteView1");
         },
 
-        onSwitchToAdmin: function () {
-            this.getOwnerComponent().getRouter().navTo("adminHome");
+        _getSessionType: function () {
+            var oModel = this.getView().getModel("hostelData");
+            var oPeriod = oModel.getProperty("/systemSettings/currentPeriod");
+            var oToday = new Date();
+
+            var oCheckInStart = new Date(oPeriod.checkInStart);
+            var oCheckInEnd = new Date(oPeriod.checkInEnd);
+            var oCheckOutStart = new Date(oPeriod.checkOutStart);
+            var oCheckOutEnd = new Date(oPeriod.checkOutEnd);
+
+            if (oToday >= oCheckInStart && oToday <= oCheckInEnd) {
+                return "check-in";
+            }
+            if (oToday >= oCheckOutStart && oToday <= oCheckOutEnd) {
+                return "check-out";
+            }
+            return "check-in";
         }
     });
 });

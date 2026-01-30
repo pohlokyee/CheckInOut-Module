@@ -6,15 +6,9 @@
     displayBlock="true">
     <Page
         id="studentHomePage"
-        title="Hostel Check-In/Check-Out"
+        title="Digital Hostel Check-In / Check-Out"
         showNavButton="true"
         navButtonPress=".onNavBack">
-        <headerContent>
-            <Button
-                text="Admin View"
-                icon="sap-icon://business-card"
-                press=".onSwitchToAdmin"/>
-        </headerContent>
         <content>
             <!-- Blocked State -->
             <VBox
@@ -95,18 +89,10 @@
                 <!-- Action Buttons -->
                 <VBox class="sapUiSmallMarginTop">
                     <Button
-                        text="Start Check-In Process"
+                        text="Start Session"
                         type="Emphasized"
                         icon="sap-icon://qr-code"
-                        press=".onStartCheckIn"
-                        visible="{= ${hostelData>/currentStudent/checkInStatus} === 'pending'}"
-                        class="sapUiSmallMarginBottom"/>
-                    <Button
-                        text="Start Check-Out Process"
-                        type="Emphasized"
-                        icon="sap-icon://qr-code"
-                        press=".onStartCheckOut"
-                        visible="{= ${hostelData>/currentStudent/checkOutStatus} === 'pending'}"
+                        press=".onStartSession"
                         class="sapUiSmallMarginBottom"/>
                     <Button
                         text="View My Requests"

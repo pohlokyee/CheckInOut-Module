@@ -1,29 +1,30 @@
 <mvc:View controllerName="project1.controller.View1"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m"
+    xmlns:core="sap.ui.core"
     displayBlock="true">
     <Page id="page" title="UTM Hostel Management System" enableScrolling="true">
+        <subHeader>
+            <Toolbar>
+                <Title text="Portal Access" level="H3"/>
+                <ToolbarSpacer/>
+                <Label text="Select Role:" class="sapUiTinyMarginEnd"/>
+                <Select
+                    id="portalSelect"
+                    selectedKey="student"
+                    change="onPortalChange">
+                    <items>
+                        <core:Item key="student" text="Student Portal"/>
+                        <core:Item key="admin" text="Administrator Portal"/>
+                    </items>
+                </Select>
+            </Toolbar>
+        </subHeader>
         <content>
             <VBox alignItems="Center" justifyContent="Center" class="sapUiLargeMargin">
                 <Title text="Welcome to Hostel Management System" level="H1" class="sapUiLargeMarginBottom"/>
-                <Text text="Please select your role to continue" class="sapUiMediumMarginBottom"/>
-                
-                <VBox width="400px" class="sapUiMediumMarginTop">
-                    <Button
-                        text="Student Portal"
-                        icon="sap-icon://person-placeholder"
-                        type="Emphasized"
-                        width="100%"
-                        press="onStudentPortal"
-                        class="sapUiSmallMarginBottom"/>
-                    <Button
-                        text="Administrator Portal"
-                        icon="sap-icon://business-card"
-                        type="Emphasized"
-                        width="100%"
-                        press="onAdminPortal"/>
-                </VBox>
-                
+                <Text text="Select your role from the top dropdown to continue" class="sapUiMediumMarginBottom"/>
+
                 <Panel headerText="System Information" class="sapUiLargeMarginTop" width="600px">
                     <VBox class="sapUiSmallMargin">
                         <HBox class="sapUiTinyMarginBottom">

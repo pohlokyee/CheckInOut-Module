@@ -7,7 +7,7 @@
       "checkInEnd": "2026-02-15",
       "checkOutStart": "2026-06-01",
       "checkOutEnd": "2026-06-15",
-      "isOpen": true
+      "isOpen": false
     }
   },
   "currentStudent": {
